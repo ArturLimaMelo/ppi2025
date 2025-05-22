@@ -9,5 +9,5 @@
     --primary-light: #a3adadff;
     --primary-dark: #5f6b6bff;
     --primary-contrast: #ffffff;
-    --primary-muted: #b3bcbcff;
+    --primary-muted: rgb(74, 77, 77);
 }

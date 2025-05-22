@@ -1,0 +1,20 @@
+.text {
+    font-size: 2rem;
+}
+
+.div {
+    background-color: var(--primary-muted);
+    color: var(--primary-dark);
+    box-shadow: 0 0 1rem var(--primary-light);
+    padding: 3rem;
+    margin: 3rem 5rem;
+    border-radius: 2rem;
+}
+
+.title {
+    font-weight: bolder;
+    font: 4rem;
+    color: var(--primary-dark);
+    text-align: center;
+    margin-bottom: 2rem;
+}
