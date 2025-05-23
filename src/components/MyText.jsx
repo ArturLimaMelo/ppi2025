@@ -9,6 +9,6 @@ export function MyText({ title, children }) {
         <h1 className={styles.title}>{title}</h1>
         <p className={styles.text}>{children}</p>
       </div>
-    </div> // uso de classes e filhos para inserção de texto, title = classe
+    </div> // uso de classes e filhos para inserção de texto, title = classe e children = filho
   );
 }
