@@ -1,6 +1,6 @@
 .container {
-  margin: 0 auto;
-  max-width: 100rem;
+  /*margin: 0 auto; */
+  max-width: 30rem;
 }
 
 .text {
@@ -12,7 +12,7 @@
   color: var(--primary-light);
   box-shadow: 0 0 1rem var(--primary-light);
   padding: 3rem;
-  margin: 3rem 5rem;
+  /*margin: 3rem 5rem;*/
   border-radius: 2rem;
 }
 
