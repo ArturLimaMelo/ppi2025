@@ -1,7 +1,7 @@
 import styles from './MyTextList.module.css';
 import { MyText } from './MyText';
 
-export default function MyTextList() {
+export function MyTextList() {
   const texts = [
     { title: "Meu titulo", text: "meu texto" },
     { title: "Meu titulo", text: "meu texto" },

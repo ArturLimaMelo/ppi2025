@@ -1,4 +1,3 @@
-import { Children } from "react";
 import styles from "./MyText.module.css";
 
 export function MyText({ title, children }) {
