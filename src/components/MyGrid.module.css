@@ -26,7 +26,7 @@
         "aside main"
         "footer footer";
     grid-template-columns: 1fr 2fr;
-    grid-template-rows: 10rem 5rem auto 10rem;
+    grid-template-rows: 10rem 5rem calc(100vh - 15rem) 10rem;
     @media (max-width: 1200px) {
         grid-template-areas:
         "header1"
