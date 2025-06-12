@@ -12,7 +12,7 @@
 .card {
     background-color: rgba(36,99,235,255);
     border-radius: 1rem;
-    color: rgb(255,255,255);
+    color: rgba(255, 255, 255, 0.795);
     box-shadow: 0.5rem 0.5rem 1rem var(--primary-dark);
     padding: 2rem;
     font-size: 1.25rem;
@@ -47,7 +47,9 @@
 .header1 {
     grid-area: header1;
     background-color: rgba(15,21,33,255);
-    display: inline;
+    display: flex;
+    justify-content: center;  
+    align-items: center;
 }
 
 .header2 {
@@ -57,31 +59,13 @@
 .footer {
     grid-area: footer;
     background-color:rgba(230,233,239,255);
-}
-.footer2 {
-    grid-area: footer2;
-    background-color:rgb(17, 209, 113);
-}
-
-.aside {
-    grid-area: aside;
-    background-color:darkslategray;
-    @media (min-width: 768px) {
-        display: none;
-    }
-}
-.aside2 {
-    grid-area: aside2;
-    background-color:rgb(178, 187, 47);
-    @media (max-width: 1200px) {
-        display: none;
-    }
+    color: rgb(0,0,0);
 }
 
 .title {
     display: inline;
     font-weight: bolder; 
-    font-size: 4rem;
+    font-size: 5rem;
     color: rgb(37,100,234);
     text-align: center;
     align-items: center;
@@ -101,12 +85,14 @@
     border-radius: 1rem;
 }
 .image {
+    display:flex;
     width: 200px;
     height: 200px;
-    object-fit: cover;
     border-radius: 1rem;
-    box-shadow: 0.5rem 0.5rem 1rem var(--primary-dark);
+    box-shadow: 0.25rem 0.25rem 1rem rgb(0,0,0);
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
     justify-content: center;
     align-items: center;
-    display: inline;
 }

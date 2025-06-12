@@ -37,7 +37,11 @@ export function MyGrid() {
           </div>
         </div>
       </main>
-      <footer className={styles.footer} />
+      <footer className={styles.footer}>
+      <h1>IFRN - Campus Macau</h1>
+      <h1 >Curso Técnico em Informática</h1>
+      <h1>Programação para Internet 2025</h1>
+      </footer>
     </div>
   );
 }
