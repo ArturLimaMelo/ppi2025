@@ -1,6 +1,6 @@
 .main {
     grid-area: main;
-    background-color: var(--primary-light)
+    background-color: rgba(15,21,33,255)
 }
 .grid {
     display: grid;  
@@ -10,14 +10,13 @@
     gap: 3rem;
 }
 .card {
-    background-color: var(--primary-muted);
+    background-color: rgba(36,99,235,255);
     border-radius: 1rem;
-    color: var(--primary-light);
-    box-shadow: 0.5rem 0.5rem 1rem var(--primary-light);
+    color: rgb(255,255,255);
+    box-shadow: 0.5rem 0.5rem 1rem var(--primary-dark);
     padding: 2rem;
-    text-align: center;
-    font-size: 3rem;
-    height: 20rem;
+    font-size: 1.25rem;
+    height: 45rem;
 }
 .container {
     display: grid;
@@ -47,8 +46,8 @@
 
 .header1 {
     grid-area: header1;
-    background-color:darkslateblue;
-
+    background-color: rgba(15,21,33,255);
+    display: inline;
 }
 
 .header2 {
@@ -57,7 +56,7 @@
 
 .footer {
     grid-area: footer;
-    background-color:dimgray
+    background-color:rgba(230,233,239,255);
 }
 .footer2 {
     grid-area: footer2;
@@ -80,9 +79,34 @@
 }
 
 .title {
-    font-weight: bolder;
+    display: inline;
+    font-weight: bolder; 
     font-size: 4rem;
-    color: var(--primary-contrast);
+    color: rgb(37,100,234);
     text-align: center;
     align-items: center;
+    margin-left:40px;   
+}
+.titleC {
+    font-weight: bolder;
+    font-size: 3rem;
+    color: rgb(0,0,0);
+    text-align: center;
+    align-items: center;
+}
+.imageH {
+    width: 64px;
+    height: 64px;
+    object-fit: cover;
+    border-radius: 1rem;
+}
+.image {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 1rem;
+    box-shadow: 0.5rem 0.5rem 1rem var(--primary-dark);
+    justify-content: center;
+    align-items: center;
+    display: inline;
 }
