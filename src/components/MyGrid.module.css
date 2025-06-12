@@ -1,6 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Ephesis&display=swap');
 .main {
     grid-area: main;
-    background-color: rgba(15,21,33,255)
+    background: linear-gradient(
+        to bottom,
+        rgba(15,21,33,255) 0%,
+        rgba(10,20,117,255) 100%
+    )
 }
 .grid {
     display: grid;  
@@ -13,7 +18,7 @@
     background-color: rgba(36,99,235,255);
     border-radius: 1rem;
     color: rgba(255, 255, 255, 0.795);
-    box-shadow: 0.5rem 0.5rem 1rem var(--primary-dark);
+    box-shadow: 0.5rem 0.5rem 1rem rgb(0,0,0);
     padding: 2rem;
     font-size: 1.25rem;
     height: 45rem;
@@ -25,7 +30,8 @@
         "main"
         "footer";
     grid-template-columns: 1fr;
-    grid-template-rows: 10rem 100vh calc(100vh - 80rem);
+    grid-template-rows: 10rem auto calc(100vh - 80rem);
+    min-height: 100vh;
     @media (max-width: 1200px) {
         grid-template-areas:
         "header1"
@@ -51,6 +57,26 @@
     justify-content: center;  
     align-items: center;
 }
+.header1 h1{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.header1 svg {
+    width: 6rem;
+    height: 6rem;
+    font-size: 6rem;
+    object-fit: cover;
+    border-radius: 1rem;
+    color: rgba(36,99,235,255);
+    @media (max-width: 768px) {
+        width: 4rem;
+        height: 4rem;
+        font-size: 4rem;
+        display: flex;
+    }
+}
 
 .header2 {
     grid-area: header2;
@@ -60,16 +86,20 @@
     grid-area: footer;
     background-color:rgba(230,233,239,255);
     color: rgb(0,0,0);
+    
 }
 
 .title {
-    display: inline;
+    display: flex;
     font-weight: bolder; 
     font-size: 5rem;
     color: rgb(37,100,234);
     text-align: center;
     align-items: center;
     margin-left:40px;   
+    @media (max-width:768px) {
+        font-size:3rem;
+    }
 }
 .titleC {
     font-weight: bolder;
@@ -79,10 +109,16 @@
     align-items: center;
 }
 .imageH {
-    width: 64px;
-    height: 64px;
+    width: 3rem;
+    height: 3rem;
+    font-size: 3rem;
     object-fit: cover;
     border-radius: 1rem;
+    color: hex(#2463eb);
+    @media (max-width: 768px) {
+        display: flex;
+
+    }
 }
 .image {
     display:flex;
@@ -95,4 +131,86 @@
     margin-bottom: 20px;
     justify-content: center;
     align-items: center;
+}
+.icons {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    gap: 1rem;
+    margin-right: 5rem;
+    background-color: rgba(36,99,235,255);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    box-shadow: 0rem 0rem 1rem var(--primary-dark);
+    @media (max-width:768px) {
+        justify-content: center;
+    }
+}
+.icons button {
+    background-color: transparent;
+    border: none;
+    margin-left: 0.5rem;
+    margin-right:0.5rem;
+}
+.icons button svg {
+    font-size: 2rem;
+  width: 2em;
+  height: 2em;
+}
+
+@media (max-width: 1200px) {
+  .icons button svg {
+    font-size: 1.5rem;
+    width: 1.5em;
+    height: 1.5em;
+  }
+}
+
+@media (max-width: 768px) {
+  .icons button svg {
+    font-size: 1.2rem;
+    width: 1.2em;
+    height: 1.2em;
+  }
+}
+
+.assinatura {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    text-align: center;
+    color: rgb(37,100,234);
+    font-size: 5rem;
+    font-family: "Ephesis", cursive;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    @media (max-width: 1200px) {
+        font-size: 3rem;
+        @media (max-width: 768px) {
+            font-size: 2rem;
+        }
+    }
+
+}
+.footerContent{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: rgb(0,0,0);
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+}
+.footerText {
+    text-align: left;
+    margin-left: 5rem;
+    @media (max-width: 1200px) {
+        font-size: 8px;
+        @media (max-width: 768px) {
+            text-align: center;
+            font-size: 6px;
+        }
+    }
+
 }
