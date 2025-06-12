@@ -4,10 +4,10 @@ export function MyGrid() {
   // Desestruturação de props
   return (
     <div className={styles.container}>
-      <header className={styles.header1} />
-      <header className={styles.header2} />
-      <aside className={styles.aside} />
-      <aside className={styles.aside2} />
+      <header className={styles.header1}>
+        <img src="https://www.flaticon.com/free-icon/duck_17839205?term=duck&page=1&position=52&origin=search&related_id=17839205"/>
+        <h1 className={styles.title}>Foco, Força, Fé</h1>
+      </header>
       <main className={styles.main}>
         <div className={styles.grid}>
           <div className={styles.card}>
@@ -32,7 +32,6 @@ export function MyGrid() {
           </div>
         </div>
       </main>
-      <footer className={styles.footer2} />
       <footer className={styles.footer} />
     </div>
   );

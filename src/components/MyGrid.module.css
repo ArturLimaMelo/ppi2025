@@ -22,22 +22,18 @@
 .container {
     display: grid;
     grid-template-areas:
-        "header1 header1 header1"
-        "aside header2 aside2"
-        "aside main aside2"
-        "aside footer aside2"
-        "footer2 footer2 aside2";
-    grid-template-columns: 20rem 1fr 20rem;
-    grid-template-rows: 10rem 5rem auto 10rem calc(100vh - 80rem);
+        "header1"
+        "main"
+        "footer";
+    grid-template-columns: 1fr;
+    grid-template-rows: 10rem 100vh calc(100vh - 80rem);
     @media (max-width: 1200px) {
         grid-template-areas:
-        "header1 header1"
-        "aside header2"
-        "aside main"
-        "aside footer"
-        "footer2";
-        grid-template-columns: 20rem 1fr;
-        grid-template-rows: 10rem 5rem auto 10rem calc(100vh - 80rem);
+        "header1"
+        "main"
+        "footer";
+        grid-template-columns: 1fr;
+        grid-template-rows: 10rem auto calc(100vh - 80rem);
         @media (max-width: 768px) {
             grid-template-areas:
             "header1"
@@ -57,8 +53,6 @@
 
 .header2 {
     grid-area: header2;
-        background-color:rgb(105, 100, 143);
-
 }
 
 .footer {
@@ -83,4 +77,12 @@
     @media (max-width: 1200px) {
         display: none;
     }
+}
+
+.title {
+    font-weight: bolder;
+    font-size: 4rem;
+    color: var(--primary-contrast);
+    text-align: center;
+    align-items: center;
 }
