@@ -81,10 +81,16 @@
     }
 }
 .header1 h1{
-    display:flex;
-    flex-direction: column;
+    display: flex;
+    font-weight: bolder; 
+    font-size: 5rem;
+    color: rgb(37,100,234);
+    text-align: center;
     align-items: center;
-    justify-content: center;
+    margin-left:40px;   
+    @media (max-width:768px) {
+        font-size:5rem;
+    }
 }
 .header1 svg {
     width: 6rem;
@@ -109,21 +115,11 @@
     grid-area: footer;
     background-color:rgba(230,233,239,255);
     color: rgb(0,0,0);
+    align-items: center;
     
 }
 
-.title {
-    display: flex;
-    font-weight: bolder; 
-    font-size: 5rem;
-    color: rgb(37,100,234);
-    text-align: center;
-    align-items: center;
-    margin-left:40px;   
-    @media (max-width:768px) {
-        font-size:5rem;
-    }
-}
+
 
 
 .icons {
@@ -133,7 +129,7 @@
     gap: 1rem;
     margin-right: 5rem;
     background-color: rgba(36,99,235,255);
-    border-radius: 0.5rem;
+    border-radius: 2rem;
     padding: 1rem;
     box-shadow: 0rem 0rem 1rem var(--primary-dark);
     @media (max-width:768px) {
@@ -148,14 +144,15 @@
     margin-left: 0.5rem;
     margin-right:0.5rem;
 }
-.icons button svg {
+.icons a svg {
     font-size: 2rem;
   width: 2em;
   height: 2em;
+  color: rgb(0,0,0);
 }
 
 @media (max-width: 1200px) {
-  .icons button svg {
+  .icons a svg {
     font-size: 1.5rem;
     width: 1.5em;
     height: 1.5em;
@@ -163,14 +160,14 @@
 }
 
 @media (max-width: 768px) {
-  .icons button svg {
+  .icons a svg {
     font-size: 2rem;
     width: 4rem;
     height: 2em;
   }
 }
 
-.assinatura {
+.footerContent p {
     display: flex;
     justify-content: center;
     align-items: center;
