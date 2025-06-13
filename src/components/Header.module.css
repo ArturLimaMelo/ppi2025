@@ -1,0 +1,36 @@
+.header1 {
+  grid-area: header1;
+  background-color: rgba(15, 21, 33, 255);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+}
+.header1 h1 {
+  display: flex;
+  font-weight: bolder;
+  font-size: 5rem;
+  color: rgb(37, 100, 234);
+  text-align: center;
+  align-items: center;
+  margin-left: 40px;
+  @media (max-width: 768px) {
+    font-size: 5rem;
+  }
+}
+.header1 svg {
+  width: 6rem;
+  height: 6rem;
+  font-size: 6rem;
+  object-fit: cover;
+  border-radius: 1rem;
+  color: rgba(36, 99, 235, 255);
+  @media (max-width: 768px) {
+    width: 12rem;
+    height: 12rem;
+    font-size: 12rem;
+    display: flex;
+  }
+}
