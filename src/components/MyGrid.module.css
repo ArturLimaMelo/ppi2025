@@ -23,6 +23,26 @@
     font-size: 1.25rem;
     height: 45rem;
 }
+.card h2{
+    font-weight: bolder;
+    font-size: 3rem;
+    color: rgb(0,0,0);
+    text-align: center;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+.card img {
+    display:flex;
+    width: 200px;
+    height: 200px;
+    border-radius: 1rem;
+    box-shadow: 0.25rem 0.25rem 1rem rgb(0,0,0);
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+    justify-content: center;
+    align-items: center;
+}
 .container {
     display: grid;
     grid-template-areas:
@@ -30,22 +50,22 @@
         "main"
         "footer";
     grid-template-columns: 1fr;
-    grid-template-rows: 10rem auto calc(100vh - 80rem);
+    grid-template-rows: 10rem auto 15rem;
     min-height: 100vh;
     @media (max-width: 1200px) {
         grid-template-areas:
         "header1"
         "main"
         "footer";
-        grid-template-columns: 1fr;
-        grid-template-rows: 10rem auto calc(100vh - 80rem);
+        grid-template-columns: 100vw;
+        grid-template-rows: 10rem auto 10rem;
         @media (max-width: 768px) {
             grid-template-areas:
             "header1"
             "main"
-            "footer2";
-            grid-template-columns: 1fr;
-            grid-template-rows: 10rem auto calc(100vh - 80rem);
+            "footer";
+            grid-template-columns: 100vw;
+            grid-template-rows: 20rem auto auto;
         }
     }
 }
@@ -56,6 +76,9 @@
     display: flex;
     justify-content: center;  
     align-items: center;
+    @media (max-width:768px) {
+        flex-direction:column;
+    }
 }
 .header1 h1{
     display:flex;
@@ -71,9 +94,9 @@
     border-radius: 1rem;
     color: rgba(36,99,235,255);
     @media (max-width: 768px) {
-        width: 4rem;
-        height: 4rem;
-        font-size: 4rem;
+        width: 12rem;
+        height: 12rem;
+        font-size: 12rem;
         display: flex;
     }
 }
@@ -98,40 +121,11 @@
     align-items: center;
     margin-left:40px;   
     @media (max-width:768px) {
-        font-size:3rem;
+        font-size:5rem;
     }
 }
-.titleC {
-    font-weight: bolder;
-    font-size: 3rem;
-    color: rgb(0,0,0);
-    text-align: center;
-    align-items: center;
-}
-.imageH {
-    width: 3rem;
-    height: 3rem;
-    font-size: 3rem;
-    object-fit: cover;
-    border-radius: 1rem;
-    color: hex(#2463eb);
-    @media (max-width: 768px) {
-        display: flex;
 
-    }
-}
-.image {
-    display:flex;
-    width: 200px;
-    height: 200px;
-    border-radius: 1rem;
-    box-shadow: 0.25rem 0.25rem 1rem rgb(0,0,0);
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 20px;
-    justify-content: center;
-    align-items: center;
-}
+
 .icons {
     display: flex;
     justify-content: right;
@@ -144,6 +138,8 @@
     box-shadow: 0rem 0rem 1rem var(--primary-dark);
     @media (max-width:768px) {
         justify-content: center;
+        left: 50%;
+        transform: translateX(30%);
     }
 }
 .icons button {
@@ -168,9 +164,9 @@
 
 @media (max-width: 768px) {
   .icons button svg {
-    font-size: 1.2rem;
-    width: 1.2em;
-    height: 1.2em;
+    font-size: 2rem;
+    width: 4rem;
+    height: 2em;
   }
 }
 
@@ -183,13 +179,21 @@
     color: rgb(37,100,234);
     font-size: 5rem;
     font-family: "Ephesis", cursive;
+    font-weight: bold;
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
     @media (max-width: 1200px) {
         font-size: 3rem;
         @media (max-width: 768px) {
-            font-size: 2rem;
+            font-size: 2.75rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            left: 50%;
+            transform: translateX(-30%);
+            margin-top: 7rem;
         }
     }
 
@@ -201,6 +205,9 @@
     color: rgb(0,0,0);
     margin-top: 3rem;
     margin-bottom: 1rem;
+    @media (max-width: 768px) {
+        flex-direction: column;
+    }
 }
 .footerText {
     text-align: left;
@@ -210,6 +217,11 @@
         @media (max-width: 768px) {
             text-align: center;
             font-size: 6px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;    
+            justify-content: center;
+            margin-bottom: 9rem;
         }
     }
 

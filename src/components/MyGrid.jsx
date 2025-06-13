@@ -5,7 +5,7 @@ export function MyGrid() {
   return (
     <div className={styles.container}>
       <header className={styles.header1}>
-        <BookOpenCheck className={styles.imageH} />
+        <BookOpenCheck />
         <h1 className={styles.title}>Foco, Força, Fé</h1>
       </header>
       <main className={styles.main}>
@@ -15,7 +15,7 @@ export function MyGrid() {
               className={styles.image}
               src="https://picsum.photos/200/300?random=1"
             ></img>
-            <h2 className={styles.titleC}>My Text 0</h2>
+            <h2>My Text 0</h2>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
@@ -31,7 +31,7 @@ export function MyGrid() {
               className={styles.image}
               src="https://picsum.photos/200/300?random=1"
             ></img>
-            <h2 className={styles.titleC}>My Text 1</h2>
+            <h2>My Text 1</h2>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
@@ -47,7 +47,7 @@ export function MyGrid() {
               className={styles.image}
               src="https://picsum.photos/200/300?random=1"
             ></img>
-            <h2 className={styles.titleC}>My Text 2</h2>
+            <h2>My Text 2</h2>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
@@ -63,7 +63,7 @@ export function MyGrid() {
               className={styles.image}
               src="https://picsum.photos/200/300?random=1"
             ></img>
-            <h2 className={styles.titleC}>My Text 3</h2>
+            <h2>My Text 3</h2>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
@@ -79,7 +79,7 @@ export function MyGrid() {
               className={styles.image}
               src="https://picsum.photos/200/300?random=1"
             ></img>
-            <h2 className={styles.titleC}>My Text 4</h2>
+            <h2>My Text 4</h2>
             <p>
               Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
               eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
