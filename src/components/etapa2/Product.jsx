@@ -47,7 +47,6 @@ export function Product() {
           <p className={styles.productDescription}>{product.description}</p>
           <p className={styles.productPrice}>${product.price}</p>
           <button className={styles.productButton} onClick={() => handleClick(product)}>Adicionar ao carrinho</button>
-          <p>Adicionado ao carrinho!</p>
         </div>
         
         ))}
