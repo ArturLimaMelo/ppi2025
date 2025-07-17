@@ -2,8 +2,10 @@
   grid-area: header1;
   background-color: rgba(15, 21, 33, 255);
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+  flex-direction: row;
+  padding: 1rem;
   @media (max-width: 768px) {
     flex-direction: column;
   }
@@ -14,7 +16,6 @@
   font-size: 5rem;
   color: rgb(37, 100, 234);
   text-align: center;
-  align-items: center;
   margin-left: 40px;
   @media (max-width: 768px) {
     font-size: 5rem;
@@ -33,4 +34,12 @@
     font-size: 12rem;
     display: flex;
   }
+}
+.cart {
+  font-weight: bolder;
+  font-size: 3rem;
+  color: rgb(37, 100, 234);
+  text-align: center;
+  margin-left: 40px;
+  padding: 1rem;
 }
