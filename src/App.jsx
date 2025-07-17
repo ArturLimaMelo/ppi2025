@@ -5,13 +5,13 @@ import { Header } from "./components/Header";
 import { Main } from "./components/Main";
 import { Footer } from "./components/Footer";
 import { LuckyNumber } from "./components/etapa2/LuckyNumber";
-import { Product } from "./components/etapa2/Product";
+import { ProductList } from "./components/etapa2/ProductList";
 
 export default function App() {
   return (
     <>
       <Header />
-      <Product/>
+      <ProductList/>
     </>
   );
 }
