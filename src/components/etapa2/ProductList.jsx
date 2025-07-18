@@ -1,6 +1,7 @@
 import styles from "./ProductList.module.css";
 import { useEffect, useState } from "react";
 import { Product } from "./Product.jsx";
+import { CircularProgress } from "@mui/material";
 
 export function ProductList({ addToCart, removeFromCart }) {
   var category =  "mens-shirts";
@@ -9,6 +10,9 @@ export function ProductList({ addToCart, removeFromCart }) {
   const [products, setProducts] = useState([]);
   var [carrinho, setCarrinho] = useState([]);
   var [total, setTotal] = useState(0);
+   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
   useEffect(() => {
     async function fetchProducts() {
       try {
@@ -17,7 +21,9 @@ export function ProductList({ addToCart, removeFromCart }) {
 
         setProducts(data.products);
       } catch (error) {
+        setError(error);
       } finally {
+        setLoading(false);
       }
     }
     setTimeout(() => {
@@ -34,6 +40,20 @@ export function ProductList({ addToCart, removeFromCart }) {
         
         ))}
         </div>
+         {loading && (
+        <div>
+          <CircularProgress
+            // size="sm"
+            thickness={5}
+            style={{ margin: "2rem auto", display: "block" }}
+            sx={{
+              color: "#001111",
+            }}
+          />
+          <p>Loading products...</p>
+        </div>
+      )}
+      {error && <p>Error loading products: {error.message}</p>}
     </div>
   );
 }

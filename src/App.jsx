@@ -1,12 +1,9 @@
 import "./styles/theme.css";
 import "./styles/global.css";
-import { MyTextList } from "./components/MyTextList";
 import { Header } from "./components/Header";
-import { Main } from "./components/Main";
-import { Footer } from "./components/Footer";
-import { LuckyNumber } from "./components/etapa2/LuckyNumber";
 import { ProductList } from "./components/etapa2/ProductList";
 import { useState } from "react";
+import { Cart } from "./components/etapa2/Cart";
 
 export default function App() {
   
@@ -28,7 +25,11 @@ export default function App() {
   return (
     <>
       <Header cart={cart}/>
-      <ProductList addToCart={addToCart} removeFromCart={removeFromCart}/>
+      <Routes>
+        <Route path="/" element={<ProductList addToCart={addToCart} removeFromCart={removeFromCart}/>}/>
+        <Route path="/cart" element={<Cart cart={cart} />} />
+      </Routes>
+      
     </>
   );
 }

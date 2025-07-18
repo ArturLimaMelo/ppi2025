@@ -4,21 +4,22 @@
   padding: 16px;
   text-align: center;
   background-color: rgb(17, 31, 80);
+  width: 40rem;
 }
 
 .productImage {
-  width: 100%;
+  width: 80%;
   border-radius: 4px;
 }
 
 .productTitle {
-  font-size: 2rem;
+  font-size: 3rem;
   font-weight: bold;
   margin: 8px 0;
 }
 
 .productDescription {
-  font-size: 0.5rem;
+  font-size: 1rem;
   color: rgb(37, 100, 234);
 }
 

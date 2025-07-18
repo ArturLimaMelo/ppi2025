@@ -43,3 +43,11 @@
   margin-left: 40px;
   padding: 1rem;
 }
+
+.cart button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  color: rgb(37, 100, 234);
+  font-size: 3rem;
+}
