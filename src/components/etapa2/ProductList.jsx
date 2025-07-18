@@ -28,7 +28,7 @@ export function ProductList({ addToCart, removeFromCart }) {
     }
     setTimeout(() => {
       fetchProducts();
-    }, 2000);
+    }, 100);
   }, []);
   
 

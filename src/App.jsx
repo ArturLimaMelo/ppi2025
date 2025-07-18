@@ -4,6 +4,7 @@ import { Header } from "./components/Header";
 import { ProductList } from "./components/etapa2/ProductList";
 import { useState } from "react";
 import { Cart } from "./components/etapa2/Cart";
+import { Routes, Route } from "react-router";
 
 export default function App() {
   
@@ -27,7 +28,7 @@ export default function App() {
       <Header cart={cart}/>
       <Routes>
         <Route path="/" element={<ProductList addToCart={addToCart} removeFromCart={removeFromCart}/>}/>
-        <Route path="/cart" element={<Cart cart={cart} />} />
+        <Route path="/cart" element={<Cart cart={cart} removeFromCart={removeFromCart} addToCart={addToCart}/>} />
       </Routes>
       
     </>

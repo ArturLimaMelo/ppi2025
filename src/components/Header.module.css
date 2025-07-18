@@ -10,7 +10,7 @@
     flex-direction: column;
   }
 }
-.header1 h1 {
+.title {
   display: flex;
   font-weight: bolder;
   font-size: 5rem;
