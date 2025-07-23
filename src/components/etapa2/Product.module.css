@@ -24,7 +24,7 @@
 }
 
 .productPrice {
-  font-size: 1rem;
+  font-size: 2rem;
   color: rgb(37, 100, 234);
   font-weight: bold;
   margin: 8px 0;
@@ -51,4 +51,18 @@
   justify-content: center;
   gap: 1rem;
   border: none;
+}
+.productQty button {
+    
+  background-color: rgb(23, 54, 121);
+  color: rgb(37, 100, 234);
+  border: none;
+  padding: 4px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.productQty button:hover {
+  background-color: rgb(17, 59, 151);
 }

@@ -19,7 +19,7 @@ export default function App() {
     const index = prevCart.findIndex((item) => item.id === product.id);
     if (index === -1) return prevCart;
     const newCart = [...prevCart];
-    newCart.splice(index, 1); // remove apenas o primeiro encontrado
+    newCart.splice(index, 1);
     return newCart;
   });
   }
