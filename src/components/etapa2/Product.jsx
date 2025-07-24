@@ -6,6 +6,7 @@ import { CartContext } from "../../service/CartContext";
 export function Product({ product }) {
 
   const { addToCart, removeFromCart } = useContext(CartContext);
+  const [qty, setQty] = useState(0);
   return (
     <div className={styles.productCard}>
       <img
