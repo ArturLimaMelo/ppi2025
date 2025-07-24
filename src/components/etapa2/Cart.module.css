@@ -31,12 +31,13 @@
 }
 
 .cart h3 {
-  font-size: 4rem;
+  font-size: 3rem;
   font-weight: bold;
 }
 
 .cart p {
-    font-size: 4rem;
+    font-size: 3rem;
+    font-weight: bold;
 }
 .cart button {
   background-color: rgb(23, 54, 121);
@@ -45,11 +46,12 @@
   padding: 8px 16px;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 4rem;
+  font-size: 3rem;
 }
 
 .cart button:hover {
   background-color: rgb(17, 59, 151);
+  transform: scale(1.05);
 }
 
 .cartItem {
@@ -63,6 +65,7 @@
     border: 1px solid rgb(32, 59, 156);
     border-radius: 8px;
     margin-bottom: 2rem;
+    padding-right: 2rem;
 }
 
 .checkout {

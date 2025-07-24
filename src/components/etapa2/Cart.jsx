@@ -1,17 +1,11 @@
 import styles from "./Cart.module.css";
 import { useState } from "react";
+import { useContext } from "react";
+import { CartContext } from "../../service/CartContext";
 
-export function Cart({ cart, removeFromCart, addToCart }) {
-  const productMap = {};
-  cart.forEach((product) => {
-    if (productMap[product.id]) {
-      productMap[product.id].qty += 1;
-    } else {
-      productMap[product.id] = { ...product, qty: 1 };
-    }
-  });
-
-  const uniqueProducts = Object.values(productMap);
+export function Cart() {
+  const { uniqueProducts, cart, removeFromCart, addToCart } = useContext(CartContext);
+  
 
   return (
     <div className={styles.cart}>

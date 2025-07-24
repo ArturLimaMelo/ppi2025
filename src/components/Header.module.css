@@ -6,9 +6,16 @@
   align-items: center;
   flex-direction: row;
   padding: 1rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
   @media (max-width: 768px) {
     flex-direction: column;
-  }
+  };
+
+  
 }
 .title {
   display: flex;

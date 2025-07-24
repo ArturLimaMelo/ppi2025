@@ -11,6 +11,7 @@
     font-size: 3rem;
     color: rgb(37, 100, 234);
     min-height: 100vh;
+    margin: 5rem 0;
 }
 .main {
     display: flex;
