@@ -1,17 +1,41 @@
 import styles from "./ProductList.module.css";
 import { Product } from "./Product.jsx";
 import { CircularProgress } from "@mui/material";
-import { useContext } from "react";
+import { useContext, useRef, useState, useEffect } from "react";
 import { CartContext } from "../../service/CartContext";
 
 export function ProductList() {
   const { products, loading, error } = useContext(CartContext);
   
+  const searchInput = useRef(null);
+  const [filteredProducts, setFilteredProducts] = useState(products);
+
+  useEffect(() => {
+    setFilteredProducts(products);
+  }, [products]);
 
   return (
     <div className={styles.container}>
        <div className= {styles.main}>
-       {products.map((product) => (
+        <div className= {styles.search}>
+          <input 
+          type="text"
+          ref={searchInput}
+          placeholder="Search products..."
+          onChange={() => {
+            const query = searchInput.current.value.toLowerCase();
+            filteredProducts = products.filter(product =>
+              product.title.toLowerCase().includes(query)
+            );
+            setFilteredProducts(filteredProducts);
+          }}
+          />
+          <button onClick={() => {
+            searchInput.current.value = "";
+            setFilteredProducts(products);
+          }}>Clear</button>
+        </div>
+       {filteredProducts.map((product) => (
       <Product key={product.id} product={product}/>
         
         ))}
