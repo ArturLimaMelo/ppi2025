@@ -8,7 +8,7 @@ export function ProductList() {
   const { products, loading, error } = useContext(CartContext);
   
   const searchInput = useRef(null);
-  const [filteredProducts, setFilteredProducts] = useState(products);
+  var [filteredProducts, setFilteredProducts] = useState(products);
 
   useEffect(() => {
     setFilteredProducts(products);
