@@ -25,7 +25,8 @@ export function ProductList() {
           onChange={() => {
             const query = searchInput.current.value.toLowerCase();
             filteredProducts = products.filter(product =>
-              product.title.toLowerCase().includes(query)
+              product.title.toLowerCase().includes(query) || 
+              product.description.toLowerCase().includes(query)
             );
             setFilteredProducts(filteredProducts);
           }}
