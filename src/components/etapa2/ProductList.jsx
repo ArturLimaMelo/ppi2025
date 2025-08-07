@@ -43,7 +43,7 @@ export function ProductList() {
         </div>
          {loading && (
         <div>
-          <CircularProgress
+          <CircularProgress   
             // size="sm"
             thickness={5}
             style={{ margin: "2rem auto", display: "block" }}
