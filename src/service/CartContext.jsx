@@ -10,6 +10,14 @@ export const CartContext = createContext({
   clearCart: () => {},
   removeFromCart: () => {},
   uniqueProducts: [],
+  addProduct: () => {}, 
+  removeProduct: () => {},
+  registeredEmails: null,
+  addEmail: () => {},
+  registeredPasswords: null,
+  addPassword: () => {},
+  registerUser: () => {}, 
+  validateUser: () => {},
 });
 
 export function CartProvider({ children }) {
@@ -20,6 +28,8 @@ export function CartProvider({ children }) {
   var [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [registeredEmails, setRegisteredEmails] = useState([]);
+  const [registeredPasswords, setRegisteredPasswords] = useState([]);
 
   useEffect(() => {
     async function fetchProducts() {
@@ -40,6 +50,15 @@ export function CartProvider({ children }) {
   }, []);
   const [cart, setCart] = useState([]);
 
+  const registerUser = (email, password) => {
+    setRegisteredEmails(prev => [...prev, email]);
+    setRegisteredPasswords(prev => [...prev, password]);
+  };
+
+  const validateUser = (email, password) => {
+    const idx = registeredEmails.indexOf(email);
+    return idx !== -1 && registeredPasswords[idx] === password;
+  };
   const addToCart = (product) => {
     setCart((prevCart) => [...prevCart, product]);
   };
@@ -75,6 +94,14 @@ const productMap = {};
     setCart([]);
   };
 
+  const addProduct = (product) => {
+    setProducts((prev) => [...prev, { ...product, id: Date.now() }]);
+  };
+
+  const removeProduct = (id) => {
+    setProducts((prev) => prev.filter((p) => p.id !== id));
+  };
+
   const context = {
     products: products,
     cart: cart,
@@ -85,6 +112,12 @@ const productMap = {};
     clearCart: clearCart,
     removeFromCart: removeFromCart,
     uniqueProducts: uniqueProducts,
+    addProduct,
+    removeProduct,
+    registerUser,
+    validateUser,
+    registeredEmails: "",
+    registeredPasswords: "",
   };
 
   return (
