@@ -8,12 +8,13 @@ import { ProductList } from "./components/etapa2/ProductList";
 import { Login } from "./components/etapa2/Login";
 import { Signup } from "./components/etapa2/Signup";
 import { Estoque } from "./components/etapa2/Estoque";
-
+import { ToastContainer } from 'react-toastify';
 
 export default function App() {
   return (
 
     <>
+    <ToastContainer />
     <CartProvider>
       <Header/>
       <Routes>
