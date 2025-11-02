@@ -1,12 +1,12 @@
 import styles from "./Login.module.css";
 import { useState, useContext, useEffect } from "react";
-import { CartContext } from "../../context/CartContext";
 import { Field } from "@base-ui-components/react/field";
 import { Form } from "@base-ui-components/react/form";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
 import { toast, Bounce } from "react-toastify";
 import { CircularProgress } from "@mui/material";
 import { useNavigate } from "react-router";
+import { SessionContext } from "../../context/SessionContext";
 
 export function Login({ value }) {
   // User Context
@@ -17,7 +17,7 @@ export function Login({ value }) {
     sessionLoading,
     sessionMessage,
     sessionError,
-  } = useContext(CartContext);
+  } = useContext(SessionContext);
 
   const navigate = useNavigate();
   useEffect(() => {
@@ -105,6 +105,7 @@ export function Login({ value }) {
 
     if (mode === "signin") {
       handleSignIn(formValues.email, formValues.password);
+      console.log("handle submit sign in");
     } else {
       handleSignUp(formValues.email, formValues.password, formValues.username);
     }

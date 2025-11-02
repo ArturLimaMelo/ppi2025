@@ -1,5 +1,6 @@
-import { createContext, useState, useEffect } from "react";
-import { supabase } from '../utils/supabase';
+import { createContext, useState, useEffect, useContext } from "react";
+import { supabase } from "../utils/supabase";
+import { SessionContext } from "./SessionContext";
 
 export const CartContext = createContext({
   products: [],
@@ -11,107 +12,262 @@ export const CartContext = createContext({
   clearCart: () => {},
   removeFromCart: () => {},
   uniqueProducts: [],
-  addProduct: () => {}, 
+  addProduct: () => {},
   removeProduct: () => {},
-  registeredEmails: null,
-  addEmail: () => {},
-  registeredPasswords: null,
-  addPassword: () => {},
-  registerUser: () => {}, 
-  validateUser: () => {},
-  handleSignUp: () => {},
-  handleSignIn: () => {},
-  handleSignOut: () => {},
-  session: null,
-  sessionLoading: false,
-  sessionMessage: null,
-  sessionError: null,
+  updateProduct: () => {},
 });
 
 export function CartProvider({ children }) {
-  var category = "mens-shirts";
-  var limit = 12;
-  var apiUrl = `https://dummyjson.com/products/category/${category}?limit=${limit}&select=id,thumbnail,title,price,description`;
+  const { session } = useContext(SessionContext);
+
   const [products, setProducts] = useState([]);
-  var [total, setTotal] = useState(0);
+  const [cart, setCart] = useState([]);
+  const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [registeredEmails, setRegisteredEmails] = useState([]);
-  const [registeredPasswords, setRegisteredPasswords] = useState([]);
 
   useEffect(() => {
-    async function fetchProductsSupabase() {
-      const { data, error } = await supabase.from('product_2v').select();
-      if (error) {
-        setError(`Fetching products failed! ${error}`);
+  if (!session) {
+    setProducts([]);
+    setCart([]);
+    setLoading(false);
+    return;
+  }
+
+  let mounted = true;
+
+  async function fetchProductsSupabase() {
+    try {
+      const { data, error: fetchError } = await supabase.from("product_2v").select("*");
+      if (!mounted) return;
+      if (fetchError) {
+        console.error("fetchProductsSupabase error:", fetchError);
+        setError(fetchError.message || JSON.stringify(fetchError));
+        setProducts([]);
       } else {
-        setProducts(data);
-      };
-      setLoading(false);
+        setProducts(data || []);
+      }
+    } catch (err) {
+      console.error("fetchProductsSupabase exception:", err);
+      if (mounted) setError(String(err));
+      if (mounted) setProducts([]);
     }
-    fetchProductsSupabase();
+  }
 
-    // async function fetchProducts() {
-    //   try {
-    //     const response = await fetch(apiUrl);
-    //     const data = await response.json();
+  async function fetchCartSupabase() {
+    if (!session || !session.user || !session.user.id) {
+      if (mounted) setCart([]);
+      if (mounted) setLoading(false);
+      return;
+    }
 
-    //     setProducts(data.products);
-    //   } catch (error) {
-    //     setError(error);
-    //   } finally {
-    //     setLoading(false);
-    //   }
-    // }
-  }, []);
-  const [cart, setCart] = useState([]);
+    try {
+      const { data, error: cartError } = await supabase
+        .from("cart")
+        .select("*")
+        .eq("customer_id", session.user.id)
+        .order("added_at", { ascending: false });
 
-  const registerUser = (email, password) => {
-    setRegisteredEmails(prev => [...prev, email]);
-    setRegisteredPasswords(prev => [...prev, password]);
+      if (!mounted) return;
+
+      if (cartError) {
+        console.error("fetchCartSupabase error:", cartError);
+        setError(cartError.message || JSON.stringify(cartError));
+        setCart([]);
+      } else {
+        setCart(data || []);
+      }
+    } catch (err) {
+      console.error("fetchCartSupabase exception:", err);
+      if (mounted) setError(String(err));
+      if (mounted) setCart([]);
+    } finally {
+      if (mounted) setLoading(false);
+    }
+  }
+
+  setLoading(true);
+  fetchProductsSupabase();
+  fetchCartSupabase();
+
+  return () => {
+    mounted = false;
   };
+}, [session]);
 
-  const validateUser = (email, password) => {
-    const idx = registeredEmails.indexOf(email);
-    return idx !== -1 && registeredPasswords[idx] === password;
+  const updateProduct = async (updated) => {
+    setProducts((prev) => prev.map((p) => (p.id === updated.id ? { ...p, ...updated } : p)));
+
+    try {
+      const payload = {
+        title: updated.title,
+        price: updated.price,
+        description: updated.description,
+        thumbnail: updated.thumbnail,
+        updated_at: new Date().toISOString(),
+      };
+
+      const { error } = await supabase.from("product_2v").update(payload).eq("id", updated.id);
+    } catch (err) {
+      console.error("updateProduct exception:", err);
+      setError(String(err));
+    }
   };
+  
   const addToCart = (product) => {
-    setCart((prevCart) => [...prevCart, product]);
+    setCart((prev) => [...prev, { ...product, quantity: 1 }]);
+
+    async function addCartItem(prod) {
+      if (!session) {
+        setError("Entre em sua conta para modificar o carrinho");
+        return;
+      }
+      try {
+        const { data: existing, error: fetchErr } = await supabase
+          .from("cart")
+          .select("*")
+          .eq("customer_id", session.user.id)
+          .eq("product_id", prod.id)
+          .maybeSingle();
+
+        if (existing) {
+          const newQty = existing.quantity + 1;
+          const { error: updateErr } = await supabase
+            .from("cart")
+            .update({ quantity: newQty, added_at: new Date().toISOString() })
+            .eq("customer_id", session.user.id)
+            .eq("product_id", prod.id);
+          return;
+        }
+
+        const { error: insertErr } = await supabase.from("cart").insert({
+          customer_id: session.user.id,
+          product_id: prod.id,
+          quantity: 1,
+          title: prod.title,
+          price: prod.price,
+          thumbnail: prod.thumbnail,
+          description: prod.description,
+          added_at: new Date().toISOString(),
+        });
+      } catch (err) {
+        console.error("addToCart exception:", err);
+        setError(String(err));
+      }
+    }
+
+    addCartItem(product);
   };
 
-  const updateQty = (product, qty) => {
-    setCart((prevCart) => {
-      return prevCart.map((item) =>
-        item.id === product.id ? { ...item, qty } : item
-      );
-    });
+  const updateQty = async (product, qty) => {
+    if (!session) {
+      setError("Entre em sua conta para modificar o carrinho");
+      return;
+    }
+
+    try {
+      const productId = product.product_id ?? product.id;
+
+      const { error } = await supabase
+        .from("cart")
+        .update({ quantity: qty, added_at: new Date().toISOString() })
+        .eq("customer_id", session.user.id)
+        .eq("product_id", productId);
+    } catch (err) {
+      console.error("updateQty exception:", err);
+      setError(String(err));
+    }
+
+    setCart((prevCart) =>
+      prevCart.map((item) =>
+        item.id === product.id || item.product_id === product.id ? { ...item, quantity: qty } : item
+      )
+    );
   };
-   const removeFromCart = (product) => {
-    setCart((prevCart) => {
-    const index = prevCart.findIndex((item) => item.id === product.id);
-    if (index === -1) return prevCart;
-    const newCart = [...prevCart];
-    newCart.splice(index, 1);
-    return newCart;
-  });
-};
-const productMap = {};
-  cart.forEach((product) => {
-    if (productMap[product.id]) {
-      productMap[product.id].qty += 1;
+
+  const removeFromCart = async (product) => {
+    const match = cart.find(
+      (item) =>
+        item.id === product.id ||
+        item.product_id === product.id ||
+        (product.product_id && item.product_id === product.product_id)
+    );
+
+    const currentQty = match.quantity;
+    const rowId = match.id;
+    const productId = match.product.id;
+
+
+    if (currentQty > 1) {
+      setCart((prevCart) =>
+        prevCart.map((item) =>
+          item.id === rowId || item.product_id === productId ? { ...item, quantity: (item.quantity ?? 1) - 1 } : item
+        )
+      );
     } else {
-      productMap[product.id] = { ...product, qty: 1 };
+      setCart((prevCart) => {
+        const index = prevCart.findIndex(
+          (item) => item.id === rowId || item.product_id === productId || item.id === product.id
+        );
+        if (index === -1) return prevCart;
+        const newCart = [...prevCart];
+        newCart.splice(index, 1);
+        return newCart;
+      });
+    }
+
+    // persist change to supabase
+    if (!session) {
+      setError("Entre em sua conta para modificar o carrinho");
+      return;
+    }
+
+    try {
+      if (currentQty > 1) {
+        const { error: updErr } = await supabase
+          .from("cart")
+          .update({ quantity: currentQty - 1, added_at: new Date().toISOString() })
+          .eq("customer_id", session.user.id)
+          .eq("product_id", productId);
+
+      } else {
+        const { error: delErr } = await supabase
+          .from("cart")
+          .delete()
+          .eq("customer_id", session.user.id)
+          .eq("product_id", productId);
+      }
+    } catch (err) {
+      console.error("removeFromCart exception:", err);
+      setError(String(err));
+    }
+  };
+
+  const productMap = {};
+  cart.forEach((product) => {
+    const idKey = product.product_id ?? product.id;
+    if (productMap[idKey]) {
+      productMap[idKey].qty += product.quantity ?? 1;
+    } else {
+      productMap[idKey] = { ...product, qty: product.quantity ?? 1, id: idKey };
     }
   });
 
   const uniqueProducts = Object.values(productMap);
 
-  const clearCart = () => {
-    setCart([]);
+  const clearCart = async (product) => {
+    if (!session) return;
+    try {
+      const { error } = await supabase.from("cart")
+      .delete()
+      .eq("customer_id", session.user.id)
+      .eq("product_id", product.id);
+    } catch (err) {
+      console.error("clearCart exception:", err);
+      setError(String(err));
+    }
   };
 
-
-  
   const addProduct = (product) => {
     setProducts((prev) => [...prev, { ...product, id: Date.now() }]);
   };
@@ -120,131 +276,20 @@ const productMap = {};
     setProducts((prev) => prev.filter((p) => p.id !== id));
   };
 
-  const [session, setSession] = useState(null);
-  const [sessionLoading, setSessionLoading] = useState(false);
-  const [sessionMessage, setSessionMessage] = useState(null);
-  const [sessionError, setSessionError] = useState(null);
-
-  useEffect(() => {
-    // Verifica se tem sessão ativa no supabase
-    async function getSession() {
-      const {
-        data: { session },
-      } = await supabase.auth.getSession();
-      setSession(session || null);
-    }
-
-    getSession();
-
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((event, session) => {
-      setSession(session || null);
-    });
-
-    return() => subscription.unsubscribe();
-
-  }, []);
-
-
-
-  async function handleSignUp(email, password, username) {
-    setSessionLoading(true);
-    setSessionError(null);
-    setSessionMessage(null);
-
-    try { 
-      const { data, error } = await supabase.auth.signUp({
-        email,
-        password,
-        options: {
-          data: {
-            username: username,
-            admin: false,
-          },
-          emailRedirectTo: `{window.location.origin}/signin`,
-        }
-      });
-      if (error) throw error;
-
-      if (data?.user) {
-        setSessionMessage("Registration successful! Check your email for confirmation.");
-      }
-    } catch (error) {
-      setSessionError(error.message);
-    } finally {
-      setSessionLoading(false);
-    }
-  }
-
-  async function handleSignIn(email, password) {
-    setSessionLoading(true);
-    setSessionError(null);
-    setSessionMessage(null);
-
-    try {
-      const { data, error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
-      if (error) throw error;
-
-      if (data.session) {
-        setSession(data.session);
-        setSessionMessage("Sign in Successful!");
-      }
-    } catch (error) {
-      setSessionError(error.message);
-    } finally {
-      setSessionLoading(false);
-    }
-  }
-
-  async function handleSignOut() {
-    setSessionLoading(true);
-    setSessionError(null);
-    setSessionMessage(null);
-
-    try {
-      const { error } = await supabase.auth.signOut();
-      if (error) throw error;
-      setSession(null);
-      setSessionMessage("Sign out successful!");
-      window.location.href = "/";
-    } catch (error) {
-      setSessionError(error.message);
-    } finally {
-      setSessionLoading(false);
-    } 
-  }
   const context = {
-    products: products,
-    cart: cart,
-    loading: loading,
-    error: error,
-    addToCart: addToCart,
-    updateQty: updateQty,
-    clearCart: clearCart,
-    removeFromCart: removeFromCart,
-    uniqueProducts: uniqueProducts,
+    products,
+    cart,
+    loading,
+    error,
+    addToCart,
+    updateQty,
+    clearCart,
+    removeFromCart,
+    uniqueProducts,
     addProduct,
     removeProduct,
-    registerUser,
-    validateUser,
-    registeredEmails: "",
-    registeredPasswords: "",
-    handleSignUp: handleSignUp,
-    handleSignIn: handleSignIn,
-    handleSignOut: handleSignOut,
-    session: session,
-    sessionLoading: sessionLoading,
-    sessionMessage: sessionMessage,
-    sessionError: sessionError,
+    updateProduct,
   };
 
-  return (
-    <CartContext.Provider value={context}>
-        {children}
-    </CartContext.Provider>
-  );
+  return <CartContext.Provider value={context}>{children}</CartContext.Provider>;
 }
